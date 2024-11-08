@@ -1,0 +1,67 @@
+version: "3.8"
+
+# volumes:
+  # mariadb_data: {}
+  # mysql_data: {}
+  # mongo_data: {}
+
+services:
+
+  # Backend Service
+  backend:
+    build:
+      context: ./elspark-backend
+      dockerfile: Dockerfile  # Säkerställ att detta stämmer med backend Dockerfilen
+    ports:
+      - "5000:5000"  # Matcha porten som används i backend
+    volumes:
+      - ./elspark-backend:/app  # Monterar backend-koden
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=mysql://root:pass@mysql_database/elsparkdb
+    # depends_on:
+    #   - mysql_database  # Detta gör att backend väntar på att MySQL startar
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./elspark-frontend
+      dockerfile: Dockerfile  # Säkerställ att detta stämmer med frontend Dockerfilen
+    ports:
+      - "3000:3000"  # Port för frontend
+    volumes:
+      - ./elspark-frontend:/app  # Monterar frontend-koden
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_BACKEND_URL=http://backend:5000  # För att frontend ska kunna nå backend
+    depends_on:
+      - backend  # Ser till att backend startas först
+
+  # # MySQL Database
+  # mysql_database:
+  #   image: mysql:latest
+  #   restart: always
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   ports:
+  #     - "3307:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: pass
+  #     MYSQL_DATABASE: elsparkdb  # Skapa en databas som backend kan ansluta till
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql  # Beständigt lagringsutrymme för MySQL
+
+  # # (Valfritt) MongoDB Database
+  # mongo_database:
+  #   image: mongo
+  #   restart: always
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: secret
+  #   volumes:
+  #     - mongo_data:/data/db  # Beständigt lagringsutrymme för MongoDB
+
+networks:
+  default:
+    driver: bridge
