@@ -5,6 +5,10 @@ version: "3.8"
   # mysql_data: {}
   # mongo_data: {}
 
+# environment:
+#   - NUMBER_OF_BIKES=1000
+#   - UPDATE_INTERVAL=5  # Uppdatera varje 5 sekunder
+
 services:
 
   # Backend Service
@@ -36,6 +40,16 @@ services:
       - REACT_APP_BACKEND_URL=http://backend:5000  # För att frontend ska kunna nå backend
     depends_on:
       - backend  # Ser till att backend startas först
+
+  # # Simulator för cyklar
+  # bike_simulator:
+  #   build:
+  #     context: ./path-to-simulator
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - backend
+  #   environment:
+  #     - SIMULATION_SPEED=fast  # Exempel på inställning för simulatorn
 
   # # MySQL Database
   # mysql_database:
