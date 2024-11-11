@@ -17,7 +17,7 @@ Förutsättningar
 
 Följ dessa steg för att klona repot och köra applikationen lokalt med Docker Compose.
 
-    Klona detta repo:
+Klona detta repo:
 
 ```bash
 git clone https://github.com/yourusername/vteam.git
@@ -35,9 +35,9 @@ Detta kommando bygger och startar alla tjänster som definieras i docker-compose
 Stoppa tjänsterna: För att stoppa och ta bort containrarna, använd:
 ```bash
     docker-compose down
-
+```
 Efter att tjänsterna startat kan du nå frontend och backend på följande URL:er:
-
+``` bash
     Frontend: http://localhost:3000
     Backend: http://localhost:5000
 ```
@@ -46,8 +46,8 @@ Efter att tjänsterna startat kan du nå frontend och backend på följande URL:
 
 Docker Compose är inställt för att starta följande tjänster:
 
-    backend: Backend-tjänsten, byggs från elspark-backend mappen. Den lyssnar på port 5000.
-    frontend: Frontend-tjänsten, byggs från elspark-frontend mappen. Den lyssnar på port 3000.
+backend: Backend-tjänsten, byggs från elspark-backend mappen. Den lyssnar på port 5000.
+frontend: Frontend-tjänsten, byggs från elspark-frontend mappen. Den lyssnar på port 3000.
 
     Notera: docker-compose.yml är konfigurerad för att köra frontend och backend lokalt utan extern databas i detta steg. En cykelsimulator och databas kommer att kunna integreras senare.
 
