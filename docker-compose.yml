@@ -14,12 +14,12 @@ services:
   # Backend Service
   backend:
     build:
-      context: ./elspark-backend
+      context: ./backend
       dockerfile: Dockerfile  # Säkerställ att detta stämmer med backend Dockerfilen
     ports:
       - "5000:5000"  # Matcha porten som används i backend
     volumes:
-      - ./elspark-backend:/app  # Monterar backend-koden
+      - ./backend:/app  # Monterar backend-koden
     environment:
       - NODE_ENV=development
       - DATABASE_URL=mysql://root:pass@mysql_database/elsparkdb
@@ -29,12 +29,12 @@ services:
   # Frontend Service
   frontend:
     build:
-      context: ./elspark-frontend
+      context: ./frontend
       dockerfile: Dockerfile  # Säkerställ att detta stämmer med frontend Dockerfilen
     ports:
       - "3000:3000"  # Port för frontend
     volumes:
-      - ./elspark-frontend:/app  # Monterar frontend-koden
+      - ./frontend:/app  # Monterar frontend-koden
     environment:
       - NODE_ENV=development
       - REACT_APP_BACKEND_URL=http://backend:5000  # För att frontend ska kunna nå backend
