@@ -1,9 +1,7 @@
 version: "3.8"
 
-# volumes:
-  # mariadb_data: {}
-  # mysql_data: {}
-  # mongo_data: {}
+volumes:
+  mongo_data: {}
 
 # environment:
 #   - NUMBER_OF_BIKES=1000
@@ -22,9 +20,9 @@ services:
       - ./backend:/app  # Monterar backend-koden
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=mysql://root:pass@mysql_database/elsparkdb
-    # depends_on:
-    #   - mysql_database  # Detta gör att backend väntar på att MySQL startar
+      - DATABASE_URL=mongodb://root:secret@mongo_database:27017/elsparkdb?authSource=admin
+    depends_on:
+      - mongo_database
 
   # Frontend Service
   frontend:
@@ -51,30 +49,18 @@ services:
   #   environment:
   #     - SIMULATION_SPEED=fast  # Exempel på inställning för simulatorn
 
-  # # MySQL Database
-  # mysql_database:
-  #   image: mysql:latest
-  #   restart: always
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   ports:
-  #     - "3307:3306"
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: pass
-  #     MYSQL_DATABASE: elsparkdb  # Skapa en databas som backend kan ansluta till
-  #   volumes:
-  #     - mysql_data:/var/lib/mysql  # Beständigt lagringsutrymme för MySQL
-
-  # # (Valfritt) MongoDB Database
-  # mongo_database:
-  #   image: mongo
-  #   restart: always
-  #   ports:
-  #     - "27017:27017"
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: root
-  #     MONGO_INITDB_ROOT_PASSWORD: secret
-  #   volumes:
-  #     - mongo_data:/data/db  # Beständigt lagringsutrymme för MongoDB
+  # (Valfritt) MongoDB Database
+  mongo_database:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+    volumes:
+      - mongo_data:/data/db  # Beständigt lagringsutrymme för MongoDB
 
 networks:
   default:
