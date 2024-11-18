@@ -15,7 +15,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile  # Säkerställ att detta stämmer med backend Dockerfilen
     ports:
-      - "5000:5000"  # Matcha porten som används i backend
+      - "5001:5000"  # Matcha porten som används i backend
     volumes:
       - ./backend:/app  # Monterar backend-koden
     environment:
@@ -35,9 +35,24 @@ services:
       - ./frontend:/app  # Monterar frontend-koden
     environment:
       - NODE_ENV=development
-      - REACT_APP_BACKEND_URL=http://backend:5000  # För att frontend ska kunna nå backend
+      - REACT_APP_BACKEND_URL=http://backend:5001  # För att frontend ska kunna nå backend
     depends_on:
       - backend  # Ser till att backend startas först
+
+  # mobile-app service
+  mobile-app:
+    build:
+      context: ./mobile-app
+      dockerfile: Dockerfile
+    ports:
+      - "19000:19000"
+    volumes:
+      - ./mobile-app:/app
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_BACKEND_URL=http://backend:5001
+    depends_on:
+      - backend
 
   # # Simulator för cyklar
   # bike_simulator:
