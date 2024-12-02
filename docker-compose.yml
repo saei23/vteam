@@ -15,7 +15,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile  # Säkerställ att detta stämmer med backend Dockerfilen
     ports:
-      - "5001:5000"  # Matcha porten som används i backend
+      - "5001:5001"  # Matcha porten som används i backend
     volumes:
       - ./backend:/app  # Monterar backend-koden
     environment:
