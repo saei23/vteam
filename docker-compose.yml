@@ -21,6 +21,7 @@ services:
     environment:
       - NODE_ENV=development
       - DATABASE_URL=mongodb://root:secret@mongo_database:27017/elsparkdb?authSource=admin
+    restart: "no"
     depends_on:
       - mongo_database
 
@@ -36,6 +37,7 @@ services:
     environment:
       - NODE_ENV=development
       - REACT_APP_BACKEND_URL=http://backend:5001  # För att frontend ska kunna nå backend
+    restart: "no"
     depends_on:
       - backend  # Ser till att backend startas först
 
@@ -51,6 +53,7 @@ services:
     environment:
       - NODE_ENV=development
       - REACT_APP_BACKEND_URL=http://backend:5001
+    restart: "no"
     depends_on:
       - backend
 
@@ -68,7 +71,7 @@ services:
   mongo_database:
     image: mongo:latest
     container_name: mongodb
-    restart: always
+    restart: "no"
     ports:
       - "27017:27017"
     environment:
