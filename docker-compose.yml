@@ -20,7 +20,7 @@ services:
       - ./backend:/app  # Monterar backend-koden
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=mongodb://root:secret@mongo_database:27017/elsparkdb?authSource=admin
+      - DATABASE_URL=mongodb+srv://sagaericsson:k9zHnMrKJvWizybM@vteam.bq63y.mongodb.net/?retryWrites=true&w=majority&appName=vteam
     restart: "no"
     depends_on:
       - mongo_database
