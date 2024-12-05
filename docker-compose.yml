@@ -47,7 +47,7 @@ services:
       context: ./mobile-app
       dockerfile: Dockerfile
     ports:
-      - "19000:19000"
+      - "5173:5173"
     volumes:
       - ./mobile-app:/app
     environment:
