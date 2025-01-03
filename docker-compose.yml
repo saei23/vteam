@@ -16,7 +16,7 @@ services:
       - "5001:5001"  # Matcha porten som används i backend
     volumes:
       - ./backend:/app  # Monterar backend-koden
-      - /app/node_modules:/app/node_modules
+      - /app/node_modules
     environment:
       - NODE_ENV=development
       - DATABASE_URL=mongodb+srv://sagaericsson:k9zHnMrKJvWizybM@vteam.bq63y.mongodb.net/?retryWrites=true&w=majority&appName=vteam
@@ -33,7 +33,7 @@ services:
       - "3000:3000"  # Port för frontend
     volumes:
       - ./frontend:/app  # Monterar frontend-koden
-      - /app/node_modules:/app/node_modules
+      - /app/node_modules
     environment:
       - NODE_ENV=development
       - REACT_APP_BACKEND_URL=http://backend:5001  # För att frontend ska kunna nå backend
@@ -50,7 +50,7 @@ services:
       - "5173:5173"
     volumes:
       - ./mobile-app:/app
-      - /app/node_modules:/app/node_modules
+      - /app/node_modules
     environment:
       - NODE_ENV=development
       - REACT_APP_BACKEND_URL=http://backend:5001
