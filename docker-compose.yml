@@ -58,15 +58,22 @@ services:
     depends_on:
       - backend
 
-  # # Simulator för cyklar
-  # bike_simulator:
-  #   build:
-  #     context: ./path-to-simulator
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - backend
-  #   environment:
-  #     - SIMULATION_SPEED=fast  # Exempel på inställning för simulatorn
+  # Simulator för cyklar
+  bike_simulator:
+    build:
+      context: ./bike_simulator
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./bike_simulator:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_BACKEND_URL=http://backend:5001
+    tty: true
 
   # (Valfritt) MongoDB Database
   mongo_database:
