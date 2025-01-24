@@ -1,10 +1,6 @@
 volumes:
   mongo_data: {}
 
-# environment:
-#   - NUMBER_OF_BIKES=1000
-#   - UPDATE_INTERVAL=5  # Uppdatera varje 5 sekunder
-
 services:
 
   # Backend Service
